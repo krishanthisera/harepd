@@ -1,0 +1,22 @@
+# Use timers if client ought to run longer than expected
+[Unit]
+Description=harepd client to discover the truth
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10s
+User=postgres
+ExecStart=/usr/sbin/harepd -f /etc/harepd/conf.yml --client-only
+PermissionsStartOnly=true
+ExecStartPre=/usr/bin/touch /var/log/harepd.log
+ExecStartPre=/bin/chown postgres /var/log/harepd.log
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=harepd-server
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,20 @@
+[Unit]
+Description=harepd server daemon. To start/stop the grpc server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=postgres
+PermissionsStartOnly=true
+ExecStart=/usr/sbin/harepd -f /etc/harepd/conf.yml --server-only
+ExecStartPre=/usr/bin/touch /var/log/harepd.log
+ExecStartPre=/bin/chown postgres /var/log/harepd.log
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=harepd-server
+
+[Install]
+WantedBy=multi-user.target

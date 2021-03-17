@@ -1,0 +1,40 @@
+harepd:
+  nodeName: "node_1"
+  primaryIP: "10.21.57.61"
+  allowRO: false
+  hbaConfig: "/etc/postgresql/12/main/pg_hba.conf"
+  haproxy:
+    server: 
+    - "10.21.57.65"
+    users:
+      readOnly: "haro"
+      readWrite: "harw"
+  authModes: 
+      allow: "md5"
+      deny: "reject"
+  repmgr:
+    user: "repmgr"
+    db: "repmgr"
+  gRPC:
+    tls:
+      enabled: false
+      ca: "/etc/harepd/ca_cert.pem"
+      cert: "/etc/harepd/server_cert.pem"
+      key: "/etc/harepd/server_key.pem"
+    bindPort: 10000
+    bindAddress: "10.21.51.61"
+    serverHostOverride: ""
+    neighbours:
+      - "10.21.57.61:10000"
+    witness: 10.21.57.63
+    connectionDeadline: 5
+  watchDog: 15
+  logs: 
+    filePath: /var/log/harepd.log
+    maxAge: 86400
+    rotationTime: 604800
+    # info: /dev/null
+ 
+
+
+

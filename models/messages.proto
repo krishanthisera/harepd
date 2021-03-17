@@ -1,0 +1,20 @@
+syntax = "proto3";
+package models;
+service ClusterInfo {
+    rpc GetClusterInfo(WhatYouKnow) returns (IKnow){}
+}
+
+message WhatYouKnow{
+    string ip = 1;
+    int32 nodeId = 2;
+    string nodeName = 3;
+}
+
+message IKnow{
+    string ip = 1;
+    int32 nodeId = 2;
+    string nodeName = 3;
+    string witness = 4;
+    repeated string slaves = 5;
+    repeated string master = 6;
+}
