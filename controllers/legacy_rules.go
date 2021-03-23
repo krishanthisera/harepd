@@ -21,7 +21,7 @@ func AlterRuleLegacy(conf *models.Config, ruleRW, ruleRO string) error {
 			return delErr
 		}
 		// Inject new rules RW
-		injErr := models.InjectLines(conf.Harepd.HbaConfig, fmt.Sprintf("\nhost    %s    %s    %s/32    %s", conf.Harepd.Repmgr.Db, conf.Harepd.Haproxy.Users.ReadWrite, addr, ruleRW))
+		injErr := models.InjectLines(conf.Harepd.HbaConfig, fmt.Sprintf("\nhost    %s    %s    %s/32    %s", conf.Harepd.Haproxy.Users.ReadWrite, conf.Harepd.Haproxy.Users.ReadWrite, addr, ruleRW))
 		if injErr != nil {
 			Logs.Error(injErr)
 			return injErr
@@ -29,7 +29,7 @@ func AlterRuleLegacy(conf *models.Config, ruleRW, ruleRO string) error {
 		// If the traffic should send to the slave
 		// Inject new rules RO
 		if conf.Harepd.AllowRO {
-			injErr := models.InjectLines(conf.Harepd.HbaConfig, fmt.Sprintf("\nhost    %s    %s    %s/32    %s", conf.Harepd.Repmgr.Db, conf.Harepd.Haproxy.Users.ReadOnly, addr, ruleRO))
+			injErr := models.InjectLines(conf.Harepd.HbaConfig, fmt.Sprintf("\nhost    %s    %s    %s/32    %s", conf.Harepd.Haproxy.Users.ReadOnly, conf.Harepd.Haproxy.Users.ReadOnly, addr, ruleRO))
 			if injErr != nil {
 				Logs.Error(injErr)
 				return injErr
