@@ -39,8 +39,8 @@ Prior to run the application,
                 server: 
                 - "10.21.57.65"
                 users:
-                readOnly: "haro"
-                readWrite: "harw"
+                  readOnly: "haro"
+                  readWrite: "harw"
             authModes: 
                 allow: "md5"
                 deny: "reject"
